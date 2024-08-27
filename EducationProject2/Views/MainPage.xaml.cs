@@ -1,4 +1,5 @@
 ﻿using Windows.UI.Xaml.Controls;
+using EducationProject2.ViewModels;
 
 namespace EducationProject2.Views
 {
@@ -6,7 +7,9 @@ namespace EducationProject2.Views
     {
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+
+            DataContext = new MainPageViewModel();
         }
     }
 }

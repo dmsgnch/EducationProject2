@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Ftn+lGI5h4pDJMen01wra+GB2eULPPoLOvMh24CY3aYH0ZCw5O3gH6Vn5N0yhM5VnghNmi6eemUEjwElwFiYsg==",
+  "dgSpecHash": "1XRDWsNY6nK+cXBMd8jjtPQlgBaW5DnprWvqaop43dDma/Zl4XjdWdMj5HoNuP63zlZ5qPe60l4faP+2w8Mlyw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Dimchik\\source\\repos\\RiderProjects\\EducationProject2\\EducationProject2\\EducationProject2.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,8 @@
     "C:\\Users\\Dimchik\\.nuget\\packages\\microsoft.net.uwpcoreruntimesdk\\2.1.2\\microsoft.net.uwpcoreruntimesdk.2.1.2.nupkg.sha512",
     "C:\\Users\\Dimchik\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
     "C:\\Users\\Dimchik\\.nuget\\packages\\microsoft.netcore.universalwindowsplatform\\6.1.7\\microsoft.netcore.universalwindowsplatform.6.1.7.nupkg.sha512",
+    "C:\\Users\\Dimchik\\.nuget\\packages\\microsoft.toolkit.uwp.ui.controls.datagrid\\7.1.3\\microsoft.toolkit.uwp.ui.controls.datagrid.7.1.3.nupkg.sha512",
+    "C:\\Users\\Dimchik\\.nuget\\packages\\microsoft.ui.xaml\\2.7.0\\microsoft.ui.xaml.2.7.0.nupkg.sha512",
     "C:\\Users\\Dimchik\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
     "C:\\Users\\Dimchik\\.nuget\\packages\\runtime.win10-arm-aot.microsoft.netcore.universalwindowsplatform\\6.1.7\\runtime.win10-arm-aot.microsoft.netcore.universalwindowsplatform.6.1.7.nupkg.sha512",
     "C:\\Users\\Dimchik\\.nuget\\packages\\runtime.win10-arm.microsoft.net.native.compiler\\2.1.8\\runtime.win10-arm.microsoft.net.native.compiler.2.1.8.nupkg.sha512",

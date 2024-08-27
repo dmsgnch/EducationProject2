@@ -2,6 +2,7 @@
     x:Class="EducationProject2.Views.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:local="using:EducationProject2"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -9,6 +10,47 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel Grid.Column="0">
+            <TextBlock Text="First name" Margin="5 5 5 5 "/>
+            <TextBox Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 5 0 "/>
+            
+            <TextBlock Text="Last name" Margin="5 5 5 5 "/>
+            <TextBox Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 5 0 "/>
+            
+            <Button Content="Add" Command="{Binding AddPersonCommand, Mode=OneWay}" HorizontalAlignment="Center" Margin="5 20 5 5"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Column="1">
+            <controls:DataGrid
+                x:Name="PersonsDataGrid"
+                AutoGenerateColumns="False"
+                CanUserReorderColumns="False"
+                CanUserResizeColumns="True"
+                CanUserSortColumns="True"
+                ItemsSource="{Binding Persons, Mode=TwoWay}"
+                IsReadOnly="False"
+                Margin="20">
+                
+                <controls:DataGrid.Columns>
+                    <controls:DataGridTextColumn Header="First name" Binding="{Binding FirstName}" IsReadOnly="False" Width="1*"/>
+                    <controls:DataGridTextColumn Header="Last name" Binding="{Binding LastName}" IsReadOnly="False" Width="1*"/>
+                    <controls:DataGridTemplateColumn Header="Action" Width="100">
+                        <controls:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Delete" 
+                                        Command="{Binding DataContext.DeleteCommand, ElementName=dataGrid}"
+                                        CommandParameter="{Binding}"
+                                        HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </controls:DataGridTemplateColumn.CellTemplate>
+                    </controls:DataGridTemplateColumn>
+                </controls:DataGrid.Columns>
+            </controls:DataGrid>
+        </StackPanel>
     </Grid>
 </Page>

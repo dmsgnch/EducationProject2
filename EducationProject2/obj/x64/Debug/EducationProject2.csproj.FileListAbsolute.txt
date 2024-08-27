@@ -1,7 +1,6 @@
 C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\EducationProject2.csproj.AssemblyReference.cache
 C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\EducationProject2.csproj.CoreCompileInputs.cache
 C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\bin\x64\Debug\App.xbf
-C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\bin\x64\Debug\MainPage.xbf
 C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\bin\x64\Debug\EducationProject2.xr.xml
 C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\bin\x64\Debug\EducationProject2.exe
 C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\bin\x64\Debug\EducationProject2.pdb
@@ -177,13 +176,9 @@ C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\
 C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\bin\x64\Debug\Microsoft.UI.Xaml.Markup.winmd
 C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\App.g.i.cs
 C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\App.g.cs
-C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\MainPage.g.i.cs
-C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\MainPage.g.cs
 C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\XamlTypeInfo.g.cs
 C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\App.xaml
-C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\MainPage.xaml
 C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\App.xbf
-C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\MainPage.xbf
 C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\XamlSaveStateFile.xml
 C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\Educatio.1C2C5126.Up2Date
 C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\EducationProject2.exe
@@ -292,3 +287,14 @@ C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\
 C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\MultipleQualifiersPerDimensionFound.txt
 C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\ProjectArchitectures.txt
 C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\.winmd_cache\$Microsoft.UI.Xaml.Markup.winmd_636885238160000000.json
+C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\bin\x64\Debug\Views\MainPage.xbf
+C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\Views\MainPage.g.i.cs
+C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\Views\MainPage.g.cs
+C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\Views\MainPage.xaml
+C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\Views\MainPage.xbf
+C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\bin\x64\Debug\Microsoft.Toolkit.Uwp.UI.Controls.DataGrid\Microsoft.Toolkit.Uwp.UI.Controls.DataGrid.xr.xml
+C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\bin\x64\Debug\Microsoft.Toolkit.Uwp.UI.Controls.DataGrid.dll
+C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\bin\x64\Debug\Microsoft.Toolkit.Uwp.UI.Controls.DataGrid.pdb
+C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\Microsoft.Toolkit.Uwp.UI.Controls.DataGrid.pri.xml
+C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\Microsoft.UI.Xaml.pri.xml
+C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\obj\x64\Debug\Microsoft.Toolkit.Uwp.UI.Controls.DataGrid\en-US\Microsoft.Toolkit.Uwp.UI.Controls.Resources.resw

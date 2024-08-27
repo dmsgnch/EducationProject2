@@ -17,7 +17,7 @@
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
     <LayoutDir>C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\bin\x64\Debug\AppX</LayoutDir>
-    <RegisteredManifestChecksum>D50D94E386A90084193FB318AD62CB23DB0E26B0C5BBE5CDF840A39A07E7363F</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>09570045D8D0EBD704280DFBA421AB450D31B2CC1447E6BB88FCDE3D3B98601F</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>9924836e-d7cf-493b-82f1-df238f8fb7c7_1.0.0.0_x64__nr97xsbe5j60e</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>9924836e-d7cf-493b-82f1-df238f8fb7c7_nr97xsbe5j60e!App</RegisteredUserModeAppID>
     <RegisteredPackageID>9924836e-d7cf-493b-82f1-df238f8fb7c7</RegisteredPackageID>
@@ -29,13 +29,17 @@
     <AppXManifest Include="C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2024-08-27T09:34:26.938</Modified>
+      <Modified>2024-08-27T14:16:55.383</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\bin\x64\Debug\EducationProject2.exe">
       <PackagePath>entrypoint\EducationProject2.exe</PackagePath>
-      <Modified>2024-08-27T09:34:25.252</Modified>
+      <Modified>2024-08-27T14:16:54.074</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dimchik\.nuget\packages\microsoft.toolkit.uwp.ui.controls.datagrid\7.1.3\lib\uap10.0.17763\Microsoft.Toolkit.Uwp.UI.Controls.DataGrid.dll">
+      <PackagePath>Microsoft.Toolkit.Uwp.UI.Controls.DataGrid.dll</PackagePath>
+      <Modified>2022-11-01T17:33:04.000</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dimchik\.nuget\packages\runtime.win10-x64.microsoft.netcore.universalwindowsplatform\6.1.7\runtimes\win10-x64\nativeassets\uap10.0.15138\clrcompression.dll">
       <PackagePath>clrcompression.dll</PackagePath>
@@ -697,6 +701,10 @@
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
       <Modified>2019-03-18T16:36:56.000</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dimchik\.nuget\packages\microsoft.toolkit.uwp.ui.controls.datagrid\7.1.3\lib\uap10.0.17763\Microsoft.Toolkit.Uwp.UI.Controls.DataGrid\Microsoft.Toolkit.Uwp.UI.Controls.DataGrid.xr.xml">
+      <PackagePath>Microsoft.Toolkit.Uwp.UI.Controls.DataGrid\Microsoft.Toolkit.Uwp.UI.Controls.DataGrid.xr.xml</PackagePath>
+      <Modified>2022-11-01T17:17:18.000</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
       <Modified>2024-08-27T09:11:52.657</Modified>
@@ -737,15 +745,19 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\bin\x64\Debug\EducationProject2.xr.xml">
       <PackagePath>EducationProject2.xr.xml</PackagePath>
-      <Modified>2024-08-27T09:31:18.917</Modified>
+      <Modified>2024-08-27T14:14:15.560</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2024-08-27T09:34:25.154</Modified>
+      <Modified>2024-08-27T14:16:53.980</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\bin\x64\Debug\MainPage.xbf">
-      <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2024-08-27T09:34:25.154</Modified>
+    <AppxPackagedFile Include="C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\bin\x64\Debug\Views\MainPage.xbf">
+      <PackagePath>Views\MainPage.xbf</PackagePath>
+      <Modified>2024-08-27T14:16:53.980</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.UniversalCRT.Debug\10.0.18362.0\\redist\Debug\X64\ucrtbased.dll">
+      <PackagePath>ucrtbased.dll</PackagePath>
+      <Modified>2019-03-18T17:50:32.000</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.18362.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -753,14 +765,58 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\bin\x64\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2024-08-27T09:34:26.322</Modified>
+      <Modified>2024-08-27T13:48:06.713</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dimchik\source\repos\RiderProjects\EducationProject2\EducationProject2\bin\x64\Debug\Core\EducationProject2.exe">
       <PackagePath>EducationProject2.exe</PackagePath>
-      <Modified>2024-08-27T09:34:26.926</Modified>
+      <Modified>2024-08-27T14:16:55.374</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Dimchik\.nuget\packages\microsoft.ui.xaml\2.7.0\buildTransitive\..\lib\uap10.0\Microsoft.UI.Xaml.winmd">
+      <PackagePath>Microsoft.UI.Xaml.winmd</PackagePath>
+      <Modified>2021-09-14T09:06:08.000</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
+    <ResolvedSDKReference Include="C:\Users\Dimchik\.nuget\packages\microsoft.ui.xaml\2.7.0\buildTransitive\..\tools\AppX\x86\Release\Microsoft.UI.Xaml.2.7.appx">
+      <Name>Microsoft.UI.Xaml.2.7</Name>
+      <Version>7.2109.13004.0</Version>
+      <Architecture>x86</Architecture>
+      <FrameworkIdentity>Name = Microsoft.UI.Xaml.2.7, MinVersion = 7.2109.13004.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Users\Dimchik\.nuget\packages\microsoft.ui.xaml\2.7.0\buildTransitive\..\tools\AppX\x86\Release\Microsoft.UI.Xaml.2.7.appx</AppxLocation>
+      <MoreInfo></MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Users\Dimchik\.nuget\packages\microsoft.ui.xaml\2.7.0\buildTransitive\..\tools\AppX\x86\Release\Microsoft.UI.Xaml.2.7.appx">
+      <Name>Microsoft.UI.Xaml.2.7</Name>
+      <Version>7.2109.13004.0</Version>
+      <Architecture>Win32</Architecture>
+      <FrameworkIdentity>Name = Microsoft.UI.Xaml.2.7, MinVersion = 7.2109.13004.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Users\Dimchik\.nuget\packages\microsoft.ui.xaml\2.7.0\buildTransitive\..\tools\AppX\x86\Release\Microsoft.UI.Xaml.2.7.appx</AppxLocation>
+      <MoreInfo></MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Users\Dimchik\.nuget\packages\microsoft.ui.xaml\2.7.0\buildTransitive\..\tools\AppX\x64\Release\Microsoft.UI.Xaml.2.7.appx">
+      <Name>Microsoft.UI.Xaml.2.7</Name>
+      <Version>7.2109.13004.0</Version>
+      <Architecture>x64</Architecture>
+      <FrameworkIdentity>Name = Microsoft.UI.Xaml.2.7, MinVersion = 7.2109.13004.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Users\Dimchik\.nuget\packages\microsoft.ui.xaml\2.7.0\buildTransitive\..\tools\AppX\x64\Release\Microsoft.UI.Xaml.2.7.appx</AppxLocation>
+      <MoreInfo></MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Users\Dimchik\.nuget\packages\microsoft.ui.xaml\2.7.0\buildTransitive\..\tools\AppX\arm\Release\Microsoft.UI.Xaml.2.7.appx">
+      <Name>Microsoft.UI.Xaml.2.7</Name>
+      <Version>7.2109.13004.0</Version>
+      <Architecture>arm</Architecture>
+      <FrameworkIdentity>Name = Microsoft.UI.Xaml.2.7, MinVersion = 7.2109.13004.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Users\Dimchik\.nuget\packages\microsoft.ui.xaml\2.7.0\buildTransitive\..\tools\AppX\arm\Release\Microsoft.UI.Xaml.2.7.appx</AppxLocation>
+      <MoreInfo></MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Users\Dimchik\.nuget\packages\microsoft.ui.xaml\2.7.0\buildTransitive\..\tools\AppX\arm64\Release\Microsoft.UI.Xaml.2.7.appx">
+      <Name>Microsoft.UI.Xaml.2.7</Name>
+      <Version>7.2109.13004.0</Version>
+      <Architecture>arm64</Architecture>
+      <FrameworkIdentity>Name = Microsoft.UI.Xaml.2.7, MinVersion = 7.2109.13004.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Users\Dimchik\.nuget\packages\microsoft.ui.xaml\2.7.0\buildTransitive\..\tools\AppX\arm64\Release\Microsoft.UI.Xaml.2.7.appx</AppxLocation>
+      <MoreInfo></MoreInfo>
+    </ResolvedSDKReference>
     <ResolvedSDKReference Include="C:\Users\Dimchik\.nuget\packages\runtime.win10-x86.microsoft.net.uwpcoreruntimesdk\2.1.2\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.1.appx">
       <Name>Microsoft.NET.CoreRuntime.2.1</Name>
       <Version>2.1.26124.5</Version>

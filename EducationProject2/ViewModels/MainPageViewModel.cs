@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using EducationProject2.Commands;
 using EducationProject2.Models;
 
@@ -12,6 +13,7 @@ namespace EducationProject2.ViewModels
         public ObservableCollection<Person> Persons { get; set; } = new ObservableCollection<Person>();
         
         public RelayCommand AddPersonCommand { get; }
+        public ICommand DeletePersonCommand { get; }
 
         private string _firstName;
 
@@ -43,6 +45,7 @@ namespace EducationProject2.ViewModels
         public MainPageViewModel()
         {
             AddPersonCommand = new RelayCommand((param) => AddPerson(), CanAddPerson);
+            DeletePersonCommand = new RelayCommand((param) => DeletePerson(param as Person), CanDeletePerson);
         }
 
         private void AddPerson()
@@ -58,7 +61,14 @@ namespace EducationProject2.ViewModels
             LastName = String.Empty;
         }
 
+        private void DeletePerson(Person person)
+        {
+            Persons.Remove(person);
+        }
+
         private bool CanAddPerson() => !String.IsNullOrWhiteSpace(FirstName) && !String.IsNullOrWhiteSpace(LastName);
+        
+        private bool CanDeletePerson() => true;
         
         public event PropertyChangedEventHandler PropertyChanged;
 

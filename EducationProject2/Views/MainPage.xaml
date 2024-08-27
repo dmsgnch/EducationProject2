@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    x:Name="Page"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
@@ -25,7 +26,7 @@
             <Button Content="Add" Command="{Binding AddPersonCommand, Mode=OneWay}" HorizontalAlignment="Center" Margin="5 20 5 5"/>
         </StackPanel>
         
-        <StackPanel Grid.Column="1">
+        <StackPanel Grid.Column="1" x:Name="MyPanel">
             <controls:DataGrid
                 x:Name="PersonsDataGrid"
                 AutoGenerateColumns="False"
@@ -43,8 +44,8 @@
                         <controls:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Content="Delete" 
-                                        Command="{Binding DataContext.DeleteCommand, ElementName=dataGrid}"
-                                        CommandParameter="{Binding}"
+                                        Click="OnDeletePersonButton_Click"
+                                        Tag="{Binding}"
                                         HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </controls:DataGridTemplateColumn.CellTemplate>

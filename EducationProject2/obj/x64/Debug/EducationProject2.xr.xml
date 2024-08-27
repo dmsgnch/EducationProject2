@@ -2,8 +2,6 @@
 <Roots >
   <Roots.PropertyPathNames>
     <RootPropertyPathName Name="Persons" />
-    <RootPropertyPathName Name="DataContext" />
-    <RootPropertyPathName Name="DeleteCommand" />
     <RootPropertyPathName Name="LastName" />
     <RootPropertyPathName Name="FirstName" />
     <RootPropertyPathName Name="AddPersonCommand" />
@@ -39,7 +37,6 @@
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Data.Binding">
       <RootProperty Name="Mode" />
-      <RootProperty Name="ElementName" />
       <RootProperty Name="UpdateSourceTrigger" />
     </RootType>
     <RootType FullName="Microsoft.Toolkit.Uwp.UI.Controls.DataGridTextColumn">
@@ -58,10 +55,11 @@
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Button">
       <RootProperty Name="Content" />
-      <RootProperty Name="Command" />
-      <RootProperty Name="CommandParameter" />
+      <RootProperty Name="Tag" />
       <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="Command" />
       <RootProperty Name="Margin" />
+      <RootEvent Name="Click" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.TextBlock">
       <RootProperty Name="Text" />

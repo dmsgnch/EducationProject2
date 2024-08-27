@@ -1,6 +1,5 @@
 using System;
 using System.Windows.Input;
-using Windows.UI.Xaml;
 
 namespace EducationProject2.Commands
 {

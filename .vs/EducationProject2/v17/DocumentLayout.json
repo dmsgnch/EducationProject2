@@ -1,7 +1,16 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Dimchik\\source\\repos\\RiderProjects\\EducationProject2\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{AB0F9D3A-2F4D-4A42-A20A-CAEE68EC7DD3}|EducationProject2\\EducationProject2.csproj|c:\\users\\dimchik\\source\\repos\\riderprojects\\educationproject2\\educationproject2\\views\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{AB0F9D3A-2F4D-4A42-A20A-CAEE68EC7DD3}|EducationProject2\\EducationProject2.csproj|solutionrelative:educationproject2\\views\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB0F9D3A-2F4D-4A42-A20A-CAEE68EC7DD3}|EducationProject2\\EducationProject2.csproj|c:\\users\\dimchik\\source\\repos\\riderprojects\\educationproject2\\educationproject2\\views\\mainpage.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{AB0F9D3A-2F4D-4A42-A20A-CAEE68EC7DD3}|EducationProject2\\EducationProject2.csproj|solutionrelative:educationproject2\\views\\mainpage.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +18,36 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Dimchik\\source\\repos\\RiderProjects\\EducationProject2\\EducationProject2\\Views\\MainPage.xaml.cs",
+              "RelativeDocumentMoniker": "EducationProject2\\Views\\MainPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Dimchik\\source\\repos\\RiderProjects\\EducationProject2\\EducationProject2\\Views\\MainPage.xaml.cs",
+              "RelativeToolTip": "EducationProject2\\Views\\MainPage.xaml.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-27T17:40:32.941Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainPage.xaml",
+              "DocumentMoniker": "C:\\Users\\Dimchik\\source\\repos\\RiderProjects\\EducationProject2\\EducationProject2\\Views\\MainPage.xaml",
+              "RelativeDocumentMoniker": "EducationProject2\\Views\\MainPage.xaml",
+              "ToolTip": "C:\\Users\\Dimchik\\source\\repos\\RiderProjects\\EducationProject2\\EducationProject2\\Views\\MainPage.xaml",
+              "RelativeToolTip": "EducationProject2\\Views\\MainPage.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-08-27T15:00:02.601Z",
+              "EditorCaption": ""
             }
           ]
         },

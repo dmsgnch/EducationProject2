@@ -1,10 +1,12 @@
 using System;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.Data.Xml.Dom;
+using Windows.UI.Notifications;
 using EducationProject2.Commands;
 using EducationProject2.Models;
 using EducationProject2.Services;
@@ -101,7 +103,7 @@ namespace EducationProject2.ViewModels
         {
             var newPerson = new Person(FirstName, LastName);
             newPerson.PropertyChanged += OnPersons_Changed;
-            
+
             Persons.Add(newPerson);
 
             ClearPersonInputFields();
@@ -116,13 +118,15 @@ namespace EducationProject2.ViewModels
         private void DeletePerson(Person person)
         {
             person.PropertyChanged -= OnPersons_Changed;
-            
+
             Persons.Remove(person);
         }
 
         private bool CanAddPerson() => !String.IsNullOrWhiteSpace(FirstName) && !String.IsNullOrWhiteSpace(LastName);
 
         #endregion
+
+        #region Persons saving/loading
 
         private async Task SavePersonsToFileAsync()
         {
@@ -131,6 +135,11 @@ namespace EducationProject2.ViewModels
             JsonFileSaverServiceBase jsonFileSaver = new JsonFileSaverService();
 
             await jsonFileSaver.SaveToFileAsync(Persons);
+
+            if (Debugger.IsAttached)
+            {
+                ShowToastNotification("Data successfully saved");
+            }
         }
 
         private async Task<ObservableCollection<Person>> LoadPersonsFromFileOrNullAsync()
@@ -138,6 +147,28 @@ namespace EducationProject2.ViewModels
             JsonFileLoaderService jsonLoader = new JsonFileLoaderService();
 
             return await jsonLoader.GetFileDataOrNullAsync<ObservableCollection<Person>>();
+        }
+
+        #endregion
+
+        private void ShowToastNotification(string message)
+        {
+            string toastXmlString = $@"
+            <toast>
+                <visual>
+                    <binding template='ToastGeneric'>
+                        <text>Notification</text>
+                        <text>{message}</text>
+                    </binding>
+                </visual>
+            </toast>";
+
+            XmlDocument toastXml = new XmlDocument();
+            toastXml.LoadXml(toastXmlString);
+
+            ToastNotification toast = new ToastNotification(toastXml);
+
+            ToastNotificationManager.CreateToastNotifier().Show(toast);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

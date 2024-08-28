@@ -7,22 +7,22 @@ namespace EducationProject2.Views
 {
     public sealed partial class MainPage : Page
     {
-        private readonly MainPageViewModel _mainPageViewModel;
-        
+        internal MainPageViewModel MainPageViewModel { get; }
+
         public MainPage()
         {
             InitializeComponent();
 
-            _mainPageViewModel = new MainPageViewModel();
+            MainPageViewModel = new MainPageViewModel();
 
-            DataContext = _mainPageViewModel;
+            DataContext = MainPageViewModel;
         }
         
         private void OnDeletePersonButton_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button button && button.Tag is Person person)
             {
-                _mainPageViewModel.DeletePersonCommand.Execute(person);
+                MainPageViewModel.DeletePersonCommand.Execute(person);
             }
         }
     }

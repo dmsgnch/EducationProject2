@@ -23,7 +23,11 @@ namespace EducationProject2.Models
         public string LastName
         {
             get => _lastName;
-            set => _lastName = value;
+            set
+            {
+                _lastName = value;
+                OnPropertyChanged();
+            } 
         }
 
         public Person()

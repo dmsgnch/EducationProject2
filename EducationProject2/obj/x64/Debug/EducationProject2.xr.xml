@@ -57,8 +57,8 @@
       <RootProperty Name="Content" />
       <RootProperty Name="Tag" />
       <RootProperty Name="HorizontalAlignment" />
-      <RootProperty Name="Command" />
       <RootProperty Name="Margin" />
+      <RootProperty Name="Command" />
       <RootEvent Name="Click" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.TextBlock">

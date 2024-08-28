@@ -38,15 +38,16 @@
                 Margin="20">
                 
                 <controls:DataGrid.Columns>
-                    <controls:DataGridTextColumn Header="First name" Binding="{Binding FirstName}" IsReadOnly="False" Width="1*"/>
-                    <controls:DataGridTextColumn Header="Last name" Binding="{Binding LastName}" IsReadOnly="False" Width="1*"/>
+                    <controls:DataGridTextColumn Header="First name" Binding="{Binding FirstName, Mode=TwoWay}" IsReadOnly="False" Width="1*"/>
+                    <controls:DataGridTextColumn Header="Last name" Binding="{Binding LastName, Mode=TwoWay}" IsReadOnly="False" Width="1*"/>
                     <controls:DataGridTemplateColumn Header="Action" Width="100">
                         <controls:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Content="Delete" 
                                         Click="OnDeletePersonButton_Click"
                                         Tag="{Binding}"
-                                        HorizontalAlignment="Center"/>
+                                        HorizontalAlignment="Center"
+                                        Margin="2"/>
                             </DataTemplate>
                         </controls:DataGridTemplateColumn.CellTemplate>
                     </controls:DataGridTemplateColumn>

@@ -9,29 +9,32 @@ namespace EducationProject2.Commands
     /// </summary>
     public class RelayCommandAsync : ICommand
     {
-        private readonly Func<object, Task> _execute;
-        private readonly Func<bool> _canExecute;
+        private readonly Func<object, Task> execute;
+        private readonly Func<bool> canExecute;
     
         public RelayCommandAsync(Func<object, Task> execute, Func<bool> canExecute = null)
         {
-            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
-            _canExecute = canExecute;
+            this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            this.canExecute = canExecute;
         }
     
         public event EventHandler CanExecuteChanged;
         
-        private bool _isExecuting;
+        private bool isExecuting;
         private bool IsExecuting
         {
-            get => _isExecuting;
+            get => isExecuting;
             set
             {
-                _isExecuting = value;
-                OnCanExecuteChanged();
+                if (!value.Equals(isExecuting))
+                {
+                    isExecuting = value;
+                    OnCanExecuteChanged();
+                }
             }
         }
     
-        public bool CanExecute(object parameter) => (_canExecute?.Invoke() ?? true) && !IsExecuting;
+        public bool CanExecute(object parameter) => (canExecute?.Invoke() ?? true) && !IsExecuting;
     
         public async void Execute(object parameter)
         {
@@ -45,7 +48,7 @@ namespace EducationProject2.Commands
             
             try
             {
-                await _execute.Invoke(parameter);
+                await execute.Invoke(parameter);
             }
             catch (Exception ex)
             {

@@ -8,22 +8,22 @@ namespace EducationProject2.Commands
     /// </summary>
     public class RelayCommand : ICommand
     {
-        private readonly Action<object> _execute;
-        private readonly Func<bool> _canExecute;
+        private readonly Action<object> execute;
+        private readonly Func<bool> canExecute;
 
         public RelayCommand(Action<object> execute, Func<bool> canExecute = null)
         {
-            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
-            _canExecute = canExecute;
+            this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            this.canExecute = canExecute;
         }
 
         public event EventHandler CanExecuteChanged;
 
-        public bool CanExecute(object parameter) => _canExecute?.Invoke() ?? true;
+        public bool CanExecute(object parameter) => canExecute?.Invoke() ?? true;
 
         public void Execute(object parameter)
         {
-            _execute.Invoke(parameter);
+            execute.Invoke(parameter);
         } 
 
         private void OnCanExecuteChanged()

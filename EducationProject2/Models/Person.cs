@@ -1,44 +1,56 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using EducationProject2.Models.Abstract;
+using MongoDB.Bson;
+using Newtonsoft.Json;
 
 namespace EducationProject2.Models
 {
     [Serializable]
-    public class Person : INotifyPropertyChanged
+    public class Person : INotifyPropertyChanged, IMongoDbObject
     {
-        private string _firstName;
-        private string _lastName;
+        [JsonIgnore] public ObjectId Id { get; set; } = ObjectId.Empty;
+
+        private string firstName;
+        private string lastName;
 
         public string FirstName
         {
-            get => _firstName;
+            get => firstName;
             set
             {
-                _firstName = value;
-                OnPropertyChanged();
-            } 
+                if (!value.Equals(firstName))
+                {
+                    firstName = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
         public string LastName
         {
-            get => _lastName;
+            get => lastName;
             set
             {
-                _lastName = value;
-                OnPropertyChanged();
-            } 
+                if (!value.Equals(lastName))
+                {
+                    lastName = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
         public Person()
-        { }
+        {
+        }
 
         public Person(string firstName, string lastName)
         {
             FirstName = firstName;
             LastName = lastName;
         }
-        
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)

@@ -98,6 +98,7 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\RelayCommandAsync.cs" />
     <Compile Include="Components\Helpers\MessageHelper.cs" />
+    <Compile Include="Components\Helpers\VisualHelper.cs" />
     <Compile Include="Models\Abstract\IMongoDbObject.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -132,6 +133,12 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Uwp.Controls.Primitives">
+      <Version>8.1.240821</Version>
+    </PackageReference>
+    <PackageReference Include="CommunityToolkit.Uwp.Extensions">
+      <Version>8.1.240821</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.7</Version>
     </PackageReference>

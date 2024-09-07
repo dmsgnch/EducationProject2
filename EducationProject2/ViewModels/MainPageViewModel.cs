@@ -2,14 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 using EducationProject2.Commands;
 using EducationProject2.Components.Helpers;
 using EducationProject2.Models;
 using EducationProject2.Services;
 using EducationProject2.Services.Abstract;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 
 namespace EducationProject2.ViewModels
 {
@@ -26,7 +29,6 @@ namespace EducationProject2.ViewModels
                 {
                     persons = value;
                     OnPropertyChanged();
-                    SubscribeToPersonsPropertiesChanged();
                 }
             }
         }
@@ -40,9 +42,12 @@ namespace EducationProject2.ViewModels
         #region Commands
 
         public RelayCommand AddPersonCommand { get; }
-        public RelayCommand DeletePersonCommand { get; }
-        public RelayCommandAsync SaveInFileCommand { get; }
-        public RelayCommandAsync SaveInDatabaseCommand { get; }
+        public RelayCommandAsync DeletePersonCommand { get; }
+        public RelayCommandAsync SelectFileStorageCommand { get; }
+        public RelayCommandAsync SelectMongoDbStorageCommand { get; }
+        public RelayCommand EditPersonCommand { get; }
+        public RelayCommandAsync SavePersonCommand { get; }
+        public RelayCommand CancelEditCommand { get; }
 
         #endregion
 
@@ -92,7 +97,7 @@ namespace EducationProject2.ViewModels
                     isFileSaveChecked = value;
                     OnPropertyChanged();
 
-                    if (value) SaveInFileCommand.Execute(null);
+                    if (value) SelectFileStorageCommand.Execute(null);
                 }
             }
         }
@@ -109,7 +114,7 @@ namespace EducationProject2.ViewModels
                     isDbSaveChecked = value;
                     OnPropertyChanged();
 
-                    if (value) SaveInDatabaseCommand.Execute(null);
+                    if (value) SelectMongoDbStorageCommand.Execute(null);
                 }
             }
         }
@@ -119,9 +124,13 @@ namespace EducationProject2.ViewModels
         public MainPageViewModel()
         {
             AddPersonCommand = new RelayCommand((param) => AddPerson(), CanAddPerson);
-            DeletePersonCommand = new RelayCommand((param) => DeletePerson((Person)param));
-            SaveInFileCommand = new RelayCommandAsync(async (param) => await SetJsonSavingAsync());
-            SaveInDatabaseCommand = new RelayCommandAsync(async (param) => await SetDbSavingAsync());
+            DeletePersonCommand = new RelayCommandAsync(async (param) => await DeletePersonAsync((Person)param));
+            SelectFileStorageCommand = new RelayCommandAsync(async (param) => await SelectJsonFileStorageAsync());
+            SelectMongoDbStorageCommand = new RelayCommandAsync(async (param) => await SelectMongoDbStorageAsync());
+
+            EditPersonCommand = new RelayCommand((param) => EnableEditRowMode((Button)param));
+            SavePersonCommand = new RelayCommandAsync(async (param) => await SaveEditRowModeAsync((Button)param));
+            CancelEditCommand = new RelayCommand((param) => CancelEditRowMode((Button)param));
 
             SelectDefaultSaveType();
         }
@@ -133,12 +142,29 @@ namespace EducationProject2.ViewModels
 
         #region Commands functionality
 
+        #region Storage type selection
+
+        private async Task SelectJsonFileStorageAsync()
+        {
+            StorageService = new JsonStorageService<Person>();
+
+            await InitializePersons();
+        }
+
+        private async Task SelectMongoDbStorageAsync()
+        {
+            StorageService = new MongoDbStorageService<Person>("Persons");
+
+            await InitializePersons();
+        }
+
+        #endregion
+
+        #region Add person
+
         private void AddPerson()
         {
-            var newPerson = new Person(FirstName, LastName);
-            newPerson.PropertyChanged += OnPersons_Changed;
-
-            Persons.Add(newPerson);
+            Persons.Add(new Person(FirstName, LastName));
 
             ClearPersonInputFields();
         }
@@ -149,28 +175,84 @@ namespace EducationProject2.ViewModels
             LastName = String.Empty;
         }
 
-        private void DeletePerson(Person person)
-        {
-            person.PropertyChanged -= OnPersons_Changed;
-
-            Persons.Remove(person);
-        }
-
         private bool CanAddPerson() => !String.IsNullOrWhiteSpace(FirstName) && !String.IsNullOrWhiteSpace(LastName);
 
-        private async Task SetJsonSavingAsync()
+        #endregion
+        
+        #region Delete person
+        
+        private async Task DeletePersonAsync(Person person)
         {
-            StorageService = new JsonStorageService<Person>();
-
-            await InitializePersons();
+            if (await IsDeletingConfirmedAsync())
+            {
+                Persons.Remove(person);
+            }
         }
 
-        private async Task SetDbSavingAsync()
+        private async Task<bool> IsDeletingConfirmedAsync()
         {
-            StorageService = new MongoDbStorageService<Person>("Persons");
+            ContentDialog deleteFileDialog = new ContentDialog()
+            {
+                Title = "Confirm action",
+                Content = "Are you really want to delete the person?",
+                PrimaryButtonText = "Ok",
+                SecondaryButtonText = "Cancel"
+            };
 
-            await InitializePersons();
+            return await deleteFileDialog.ShowAsync() is ContentDialogResult.Primary;
         }
+        
+        #endregion
+
+        #region Edit mode functionality
+
+        private void EnableEditRowMode(Button button)
+        {
+            var currentRow = VisualHelper.FindParent<DataGridRow>(button);
+            var personsDataGrid = VisualHelper.FindParent<DataGrid>(currentRow);
+            
+            personsDataGrid.SelectedItem = currentRow.DataContext;
+            personsDataGrid.BeginEdit();
+        }
+
+        private async Task SaveEditRowModeAsync(Button button)
+        {
+            var currentRow = VisualHelper.FindParent<DataGridRow>(button);
+            var personsDataGrid = VisualHelper.FindParent<DataGrid>(currentRow);
+
+            var cells = VisualHelper.GetCellsInCurrentRow(personsDataGrid, currentRow);
+            for (int i = 0; i < cells.Count; i++)
+            {
+                personsDataGrid.CurrentColumn = personsDataGrid.Columns[i];
+
+                UpdateTextBoxBindingSourceInCell(cells[i]);
+            }
+
+            personsDataGrid.CommitEdit();
+
+            await SavePersonsToFileAsync();
+        }
+
+        private void UpdateTextBoxBindingSourceInCell(DataGridCell cell)
+        {
+            if (cell.Content is TextBox textBox)
+            {
+                var bindingTextBox = textBox.GetBindingExpression(TextBox.TextProperty);
+                if (bindingTextBox is null) throw new Exception("Binding TextBlock was not found!");
+
+                bindingTextBox.UpdateSource();
+            }
+        }
+
+        private void CancelEditRowMode(Button button)
+        {
+            var personsDataGrid = VisualHelper.FindParent<DataGrid>(button);
+            
+            personsDataGrid.CancelEdit(DataGridEditingUnit.Row);
+            personsDataGrid.SelectedItem = null;
+        }
+        
+        #endregion
 
         #endregion
 
@@ -180,14 +262,6 @@ namespace EducationProject2.ViewModels
         {
             Persons = await LoadPersonsFromFileAsync();
             Persons.CollectionChanged += OnPersons_Changed;
-        }
-
-        private void SubscribeToPersonsPropertiesChanged()
-        {
-            foreach (var person in Persons)
-            {
-                person.PropertyChanged += OnPersons_Changed;
-            }
         }
 
         private async void OnPersons_Changed(object sender, EventArgs e)
@@ -204,6 +278,11 @@ namespace EducationProject2.ViewModels
             try
             {
                 await StorageService.SaveAsync(Persons.ToList());
+                
+                if (Debugger.IsAttached)
+                {
+                    MessageHelper.ShowToastNotification("Data successfully saved");
+                }
             }
             catch (Exception ex)
             {

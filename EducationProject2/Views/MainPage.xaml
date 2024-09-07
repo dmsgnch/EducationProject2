@@ -4,56 +4,139 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:local="using:EducationProject2"
+    xmlns:models="using:EducationProject2.Models"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:EducationProject2.ViewModels"
+    xmlns:winUi="using:CommunityToolkit.WinUI"
     mc:Ignorable="d"
-    x:Name="Page"
+    x:Name="RootPage"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.DataContext>
+        <viewModels:MainPageViewModel x:Name="ViewModel" />
+    </Page.DataContext>
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
-        
+
         <StackPanel Grid.Column="0">
             <StackPanel Orientation="Horizontal" Margin="0 0 0 10 ">
-                <TextBlock Text="Save to ..." Margin="5 5 5 5 "/>
-                <RadioButton GroupName="SaveTypes" Content="file" Margin="5 0 5 0 " IsChecked="{Binding IsFileSaveChecked, Mode=TwoWay}"/>
-                <RadioButton GroupName="SaveTypes" Content="database" Margin="5 0 5 0 " IsChecked="{Binding IsDbSaveChecked, Mode=TwoWay}"/>
+                <TextBlock Text="Save to ..." Margin="5 5 5 5 " />
+                <RadioButton GroupName="SaveTypes" Content="file" Margin="5 0 5 0 "
+                             IsChecked="{Binding IsFileSaveChecked, Mode=TwoWay}" />
+                <RadioButton GroupName="SaveTypes" Content="database" Margin="5 0 5 0 "
+                             IsChecked="{Binding IsDbSaveChecked, Mode=TwoWay}" />
             </StackPanel>
-            
-            <TextBlock Text="First name" Margin="5 5 5 5 "/>
-            <TextBox Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 5 0 "/>
-            
-            <TextBlock Text="Last name" Margin="5 5 5 5 "/>
-            <TextBox Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 5 0 "/>
-            
-            <Button Content="Add" Command="{Binding AddPersonCommand, Mode=OneWay}" HorizontalAlignment="Center" Margin="5 20 5 5"/>
+
+            <TextBlock Text="First name" Margin="5 5 5 5 " />
+            <TextBox Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 5 0 " />
+
+            <TextBlock Text="Last name" Margin="5 5 5 5 " />
+            <TextBox Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 5 0 " />
+
+            <Button Content="Add" Command="{Binding AddPersonCommand, Mode=OneWay}" HorizontalAlignment="Center"
+                    Margin="5 20 5 5" />
         </StackPanel>
-        
+
         <StackPanel Grid.Column="1" x:Name="MyPanel">
             <controls:DataGrid
                 x:Name="PersonsDataGrid"
                 AutoGenerateColumns="False"
-                CanUserReorderColumns="False"
-                CanUserResizeColumns="True"
-                CanUserSortColumns="True"
+                CanUserResizeColumns="False"
                 ItemsSource="{Binding Persons, Mode=TwoWay}"
                 IsReadOnly="False"
+                SelectionMode="Single"
                 Margin="20">
-                
+
                 <controls:DataGrid.Columns>
-                    <controls:DataGridTextColumn Header="First name" Binding="{Binding FirstName, Mode=TwoWay}" IsReadOnly="False" Width="1*"/>
-                    <controls:DataGridTextColumn Header="Last name" Binding="{Binding LastName, Mode=TwoWay}" IsReadOnly="False" Width="1*"/>
+                    <controls:DataGridTemplateColumn Header="First name" Width="1*">
+                        <controls:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="models:Person">
+                                <TextBlock x:Name="FirstNameTextBlock"
+                                           Text="{Binding FirstName, Mode=TwoWay}"
+                                           Margin="5"
+                                           VerticalAlignment="Center" />
+                            </DataTemplate>
+                        </controls:DataGridTemplateColumn.CellTemplate>
+                        <controls:DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate x:DataType="models:Person">
+                                <TextBox Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=Explicit}"
+                                         Margin="5"
+                                         VerticalAlignment="Center" />
+                            </DataTemplate>
+                        </controls:DataGridTemplateColumn.CellEditingTemplate>
+                    </controls:DataGridTemplateColumn>
+
+                    <controls:DataGridTemplateColumn Header="Last name" Width="1*">
+                        <controls:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="models:Person">
+                                <TextBlock Text="{Binding LastName, Mode=OneWay}"
+                                           Margin="5"
+                                           VerticalAlignment="Center" />
+                            </DataTemplate>
+                        </controls:DataGridTemplateColumn.CellTemplate>
+                        <controls:DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate x:DataType="models:Person">
+                                <TextBox
+                                    Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=Explicit}"
+                                    Margin="5"
+                                    VerticalAlignment="Center" />
+                            </DataTemplate>
+                        </controls:DataGridTemplateColumn.CellEditingTemplate>
+                    </controls:DataGridTemplateColumn>
+
+                    <controls:DataGridTemplateColumn Header="Last name" Width="150">
+                        <controls:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="models:Person">
+                                <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Center">
+                                    <Button winUi:FrameworkElementExtensions.AncestorType="controls:DataGrid"
+                                            Command="{Binding (winUi:FrameworkElementExtensions.Ancestor).DataContext.EditPersonCommand, 
+                                                RelativeSource={RelativeSource Self}}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                                            Content="Edit"
+                                            Margin="5"
+                                            VerticalAlignment="Center" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </controls:DataGridTemplateColumn.CellTemplate>
+                        <controls:DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate x:DataType="models:Person">
+                                <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Center">
+                                    <Button winUi:FrameworkElementExtensions.AncestorType="controls:DataGrid"
+                                            Command="{Binding (winUi:FrameworkElementExtensions.Ancestor).DataContext.SavePersonCommand, 
+                                                RelativeSource={RelativeSource Self}}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                                            Content="Save"
+                                            Margin="5"
+                                            VerticalAlignment="Center" />
+                                    <Button winUi:FrameworkElementExtensions.AncestorType="controls:DataGrid"
+                                            Command="{Binding (winUi:FrameworkElementExtensions.Ancestor).DataContext.CancelEditCommand, 
+                                                RelativeSource={RelativeSource Self}}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                                            Content="Cancel"
+                                            Margin="5"
+                                            VerticalAlignment="Center" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </controls:DataGridTemplateColumn.CellEditingTemplate>
+                    </controls:DataGridTemplateColumn>
+
                     <controls:DataGridTemplateColumn Header="Action" Width="100">
                         <controls:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Delete" 
-                                        Click="OnDeletePersonButton_Click"
-                                        Tag="{Binding}"
+                                <Button winUi:FrameworkElementExtensions.AncestorType="controls:DataGrid"
+                                        Command="{Binding (winUi:FrameworkElementExtensions.Ancestor).DataContext.DeletePersonCommand, 
+                                            RelativeSource={RelativeSource Self}}"
+                                        CommandParameter="{Binding}"
+                                        Content="Delete"
                                         HorizontalAlignment="Center"
-                                        Margin="2"/>
+                                        Margin="2" />
                             </DataTemplate>
                         </controls:DataGridTemplateColumn.CellTemplate>
                     </controls:DataGridTemplateColumn>

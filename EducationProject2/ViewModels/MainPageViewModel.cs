@@ -12,7 +12,6 @@ using EducationProject2.Components.Helpers;
 using EducationProject2.Models;
 using EducationProject2.Services;
 using EducationProject2.Services.Abstract;
-using Microsoft.Toolkit.Uwp.UI.Controls;
 
 namespace EducationProject2.ViewModels
 {
@@ -45,9 +44,6 @@ namespace EducationProject2.ViewModels
         public RelayCommandAsync DeletePersonCommand { get; }
         public RelayCommandAsync SelectFileStorageCommand { get; }
         public RelayCommandAsync SelectMongoDbStorageCommand { get; }
-        public RelayCommand EditPersonCommand { get; }
-        public RelayCommandAsync SavePersonCommand { get; }
-        public RelayCommand CancelEditCommand { get; }
 
         #endregion
 
@@ -128,10 +124,6 @@ namespace EducationProject2.ViewModels
             SelectFileStorageCommand = new RelayCommandAsync(async (param) => await SelectJsonFileStorageAsync());
             SelectMongoDbStorageCommand = new RelayCommandAsync(async (param) => await SelectMongoDbStorageAsync());
 
-            EditPersonCommand = new RelayCommand((param) => EnableEditRowMode((Button)param));
-            SavePersonCommand = new RelayCommandAsync(async (param) => await SaveEditRowModeAsync((Button)param));
-            CancelEditCommand = new RelayCommand((param) => CancelEditRowMode((Button)param));
-
             SelectDefaultSaveType();
         }
 
@@ -200,56 +192,6 @@ namespace EducationProject2.ViewModels
             };
 
             return await deleteFileDialog.ShowAsync() is ContentDialogResult.Primary;
-        }
-        
-        #endregion
-
-        #region Edit mode functionality
-
-        private void EnableEditRowMode(Button button)
-        {
-            var currentRow = VisualHelper.FindParent<DataGridRow>(button);
-            var personsDataGrid = VisualHelper.FindParent<DataGrid>(currentRow);
-            
-            personsDataGrid.SelectedItem = currentRow.DataContext;
-            personsDataGrid.BeginEdit();
-        }
-
-        private async Task SaveEditRowModeAsync(Button button)
-        {
-            var currentRow = VisualHelper.FindParent<DataGridRow>(button);
-            var personsDataGrid = VisualHelper.FindParent<DataGrid>(currentRow);
-
-            var cells = VisualHelper.GetCellsInCurrentRow(personsDataGrid, currentRow);
-            for (int i = 0; i < cells.Count; i++)
-            {
-                personsDataGrid.CurrentColumn = personsDataGrid.Columns[i];
-
-                UpdateTextBoxBindingSourceInCell(cells[i]);
-            }
-
-            personsDataGrid.CommitEdit();
-
-            await SavePersonsToFileAsync();
-        }
-
-        private void UpdateTextBoxBindingSourceInCell(DataGridCell cell)
-        {
-            if (cell.Content is TextBox textBox)
-            {
-                var bindingTextBox = textBox.GetBindingExpression(TextBox.TextProperty);
-                if (bindingTextBox is null) throw new Exception("Binding TextBlock was not found!");
-
-                bindingTextBox.UpdateSource();
-            }
-        }
-
-        private void CancelEditRowMode(Button button)
-        {
-            var personsDataGrid = VisualHelper.FindParent<DataGrid>(button);
-            
-            personsDataGrid.CancelEdit(DataGridEditingUnit.Row);
-            personsDataGrid.SelectedItem = null;
         }
         
         #endregion

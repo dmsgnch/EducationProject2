@@ -4,13 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:local="using:EducationProject2"
+    xmlns:behaviors="using:EducationProject2.Components.Behaviors"
     xmlns:models="using:EducationProject2.Models"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="using:EducationProject2.ViewModels"
     xmlns:winUi="using:CommunityToolkit.WinUI"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
     mc:Ignorable="d"
-    x:Name="RootPage"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.DataContext>
@@ -42,9 +43,8 @@
                     Margin="5 20 5 5" />
         </StackPanel>
 
-        <StackPanel Grid.Column="1" x:Name="MyPanel">
+        <StackPanel Grid.Column="1">
             <controls:DataGrid
-                x:Name="PersonsDataGrid"
                 AutoGenerateColumns="False"
                 CanUserResizeColumns="False"
                 ItemsSource="{Binding Persons, Mode=TwoWay}"
@@ -57,7 +57,7 @@
                         <controls:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate x:DataType="models:Person">
                                 <TextBlock x:Name="FirstNameTextBlock"
-                                           Text="{Binding FirstName, Mode=TwoWay}"
+                                           Text="{Binding FirstName, Mode=OneWay}"
                                            Margin="5"
                                            VerticalAlignment="Center" />
                             </DataTemplate>
@@ -94,13 +94,13 @@
                             <DataTemplate x:DataType="models:Person">
                                 <StackPanel Orientation="Horizontal"
                                             HorizontalAlignment="Center">
-                                    <Button winUi:FrameworkElementExtensions.AncestorType="controls:DataGrid"
-                                            Command="{Binding (winUi:FrameworkElementExtensions.Ancestor).DataContext.EditPersonCommand, 
-                                                RelativeSource={RelativeSource Self}}"
-                                            CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
-                                            Content="Edit"
+                                    <Button Content="Edit"
                                             Margin="5"
-                                            VerticalAlignment="Center" />
+                                            VerticalAlignment="Center">
+                                        <i:Interaction.Behaviors>
+                                            <behaviors:BeginEditModeButtonClickBehavior />
+                                        </i:Interaction.Behaviors>
+                                    </Button>
                                 </StackPanel>
                             </DataTemplate>
                         </controls:DataGridTemplateColumn.CellTemplate>
@@ -108,20 +108,20 @@
                             <DataTemplate x:DataType="models:Person">
                                 <StackPanel Orientation="Horizontal"
                                             HorizontalAlignment="Center">
-                                    <Button winUi:FrameworkElementExtensions.AncestorType="controls:DataGrid"
-                                            Command="{Binding (winUi:FrameworkElementExtensions.Ancestor).DataContext.SavePersonCommand, 
-                                                RelativeSource={RelativeSource Self}}"
-                                            CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
-                                            Content="Save"
+                                    <Button Content="Save"
                                             Margin="5"
-                                            VerticalAlignment="Center" />
-                                    <Button winUi:FrameworkElementExtensions.AncestorType="controls:DataGrid"
-                                            Command="{Binding (winUi:FrameworkElementExtensions.Ancestor).DataContext.CancelEditCommand, 
-                                                RelativeSource={RelativeSource Self}}"
-                                            CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
-                                            Content="Cancel"
+                                            VerticalAlignment="Center">
+                                        <i:Interaction.Behaviors>
+                                            <behaviors:CommitEditModeButtonClickBehavior />
+                                        </i:Interaction.Behaviors>
+                                    </Button>
+                                    <Button Content="Cancel"
                                             Margin="5"
-                                            VerticalAlignment="Center" />
+                                            VerticalAlignment="Center">
+                                        <i:Interaction.Behaviors>
+                                            <behaviors:CancelEditModeButtonClickBehavior />
+                                        </i:Interaction.Behaviors>
+                                    </Button>
                                 </StackPanel>
                             </DataTemplate>
                         </controls:DataGridTemplateColumn.CellEditingTemplate>

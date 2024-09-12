@@ -1,7 +1,10 @@
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using CommunityToolkit.WinUI;
+using CommunityToolkit.WinUI.Controls;
 using EducationProject2.Components.Helpers;
+using EducationProject2.ViewModels;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using Microsoft.Xaml.Interactivity;
 
@@ -23,31 +26,29 @@ namespace EducationProject2.Components.Behaviors
 
         private void OnButtonClick(object sender, RoutedEventArgs e)
         {
-            Button button = sender as Button;
-            if (button is null) throw new ArgumentException($"Sender is not Button! Sender is {sender.GetType().Name}");
+            var pressedButton = VisualHelper.GetButtonFromObject(sender);
             
-            var currentRow = VisualHelper.FindParent<DataGridRow>(button);
+            var person = pressedButton.DataContext;
+            var currentRow = VisualHelper.FindParent<DataGridRow>(pressedButton);
             var personsDataGrid = VisualHelper.FindParent<DataGrid>(currentRow);
 
             var cells = VisualHelper.GetCellsInCurrentRow(personsDataGrid, currentRow);
-            for (int i = 0; i < cells.Count; i++)
-            {
-                personsDataGrid.CurrentColumn = personsDataGrid.Columns[i];
-
-                UpdateTextBoxBindingSourceInCell(cells[i]);
-            }
-
-            personsDataGrid.CommitEdit();
+            cells.ForEach(UpdateTextBoxBindingSourceInCell);
+            
+            ((MainPageViewModel)personsDataGrid.DataContext).DisableDataGridEditModeCommand.Execute(person);
         }
         
         private void UpdateTextBoxBindingSourceInCell(DataGridCell cell)
         {
-            if (cell.Content is TextBox textBox)
+            if (cell.Content is DockPanel dockPanel)
             {
-                var bindingTextBox = textBox.GetBindingExpression(TextBox.TextProperty);
-                if (bindingTextBox is null) throw new Exception("Binding TextBlock was not found!");
-
-                bindingTextBox.UpdateSource();
+                if (dockPanel.FindChild<TextBox>() is TextBox textBox)
+                {
+                    var bindingTextBox = textBox.GetBindingExpression(TextBox.TextProperty);
+                    if (bindingTextBox is null) throw new Exception("Binding TextBlock was not found!");
+                    
+                    bindingTextBox.UpdateSource();
+                }
             }
         }
     }

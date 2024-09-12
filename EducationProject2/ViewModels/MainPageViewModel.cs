@@ -5,7 +5,9 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using EducationProject2.Commands;
 using EducationProject2.Components.Helpers;
@@ -44,6 +46,8 @@ namespace EducationProject2.ViewModels
         public RelayCommandAsync DeletePersonCommand { get; }
         public RelayCommandAsync SelectFileStorageCommand { get; }
         public RelayCommandAsync SelectMongoDbStorageCommand { get; }
+        public RelayCommand EnableDataGridEditModeCommand { get; }
+        public RelayCommand DisableDataGridEditModeCommand { get; }
 
         #endregion
 
@@ -116,13 +120,24 @@ namespace EducationProject2.ViewModels
         }
 
         #endregion
+        
+        #region Edit visibility variations
 
+        private readonly EditVisibility nonEditModeVisibility = new EditVisibility(Visibility.Visible, Visibility.Collapsed);
+        private readonly EditVisibility editModeVisibility = new EditVisibility(Visibility.Collapsed, Visibility.Visible);
+
+        #endregion
+        
         public MainPageViewModel()
         {
             AddPersonCommand = new RelayCommand((param) => AddPerson(), CanAddPerson);
             DeletePersonCommand = new RelayCommandAsync(async (param) => await DeletePersonAsync((Person)param));
+            
             SelectFileStorageCommand = new RelayCommandAsync(async (param) => await SelectJsonFileStorageAsync());
             SelectMongoDbStorageCommand = new RelayCommandAsync(async (param) => await SelectMongoDbStorageAsync());
+            
+            EnableDataGridEditModeCommand = new RelayCommand( (param) => EnableEditDataGridMode((Person)param));
+            DisableDataGridEditModeCommand = new RelayCommand( (param) => DisableEditDataGridMode((Person)param));
 
             SelectDefaultSaveType();
         }
@@ -156,7 +171,11 @@ namespace EducationProject2.ViewModels
 
         private void AddPerson()
         {
-            Persons.Add(new Person(FirstName, LastName));
+            var newPerson = new Person(FirstName, LastName);
+            DisableEditDataGridMode(newPerson);
+            
+            newPerson.PropertyChanged += OnPersons_Changed;
+            Persons.Add(newPerson);
 
             ClearPersonInputFields();
         }
@@ -177,6 +196,7 @@ namespace EducationProject2.ViewModels
         {
             if (await IsDeletingConfirmedAsync())
             {
+                person.PropertyChanged -= OnPersons_Changed;
                 Persons.Remove(person);
             }
         }
@@ -195,28 +215,73 @@ namespace EducationProject2.ViewModels
         }
         
         #endregion
+        
+        #region Toggle edit mode
 
+        private void EnableEditDataGridMode(Person person)
+        {
+            DisableEditModeAllInCollection(Persons);
+            
+            person.EditVisibility = editModeVisibility;
+        }
+        
+        private void DisableEditDataGridMode(Person person)
+        {
+            person.EditVisibility = nonEditModeVisibility;
+        }
+        
+        #endregion
+        
         #endregion
 
         #region Persons list functionality
 
         private async Task InitializePersons()
         {
-            Persons = await LoadPersonsFromFileAsync();
+            var loadedPersons = await LoadPersonsFromFileAsync();
+            
+            DisableEditModeAllInCollection(loadedPersons);
+            AddOnPropertyChangeHandlerToPersons(loadedPersons);
+
+            Persons = loadedPersons;
             Persons.CollectionChanged += OnPersons_Changed;
+        }
+
+        private void DisableEditModeAllInCollection(ICollection<Person> personsCollection)
+        {
+            foreach (var person in personsCollection)
+            {
+                DisableEditDataGridMode(person);
+            }
+        }
+
+        private void AddOnPropertyChangeHandlerToPersons(ICollection<Person> personsCollection)
+        {
+            foreach (var person in personsCollection)
+            {
+                person.PropertyChanged += OnPersons_Changed;
+            }
         }
 
         private async void OnPersons_Changed(object sender, EventArgs e)
         {
-            await SavePersonsToFileAsync();
+            if (!(e is PropertyChangedEventArgs) || 
+                (e is PropertyChangedEventArgs prArg && prArg.PropertyName != nameof(EditVisibility)))
+            {
+                await SavePersonsToFileAsync();
+            }
         }
 
         #endregion
 
         #region Persons saving/loading
+        
+        private readonly SemaphoreSlim semaphore = new SemaphoreSlim(1);
 
         private async Task SavePersonsToFileAsync()
         {
+            await semaphore.WaitAsync();
+
             try
             {
                 await StorageService.SaveAsync(Persons.ToList());
@@ -230,10 +295,16 @@ namespace EducationProject2.ViewModels
             {
                 await MessageHelper.GetInfoDialog($"{ex.Message}", "Error").ShowAsync();
             }
+            finally
+            {
+                semaphore.Release();
+            }
         }
-
+        
         private async Task<ObservableCollection<Person>> LoadPersonsFromFileAsync()
         {
+            await semaphore.WaitAsync();
+            
             List<Person> loadedPersons = new List<Person>();
 
             try
@@ -243,6 +314,10 @@ namespace EducationProject2.ViewModels
             catch (Exception ex)
             {
                 await MessageHelper.GetInfoDialog($"{ex.Message}", "Error").ShowAsync();
+            }
+            finally
+            {
+                semaphore.Release();
             }
 
             return new ObservableCollection<Person>(loadedPersons);

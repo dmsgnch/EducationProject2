@@ -1,7 +1,7 @@
-using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using EducationProject2.Components.Helpers;
+using EducationProject2.ViewModels;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using Microsoft.Xaml.Interactivity;
 
@@ -23,14 +23,14 @@ namespace EducationProject2.Components.Behaviors
 
         private void OnButtonClick(object sender, RoutedEventArgs e)
         {
-            Button button = sender as Button;
-            if (button is null) throw new ArgumentException($"Sender is not Button! Sender is {sender.GetType().Name}");
+            var pressedButton = VisualHelper.GetButtonFromObject(sender);
             
-            var currentRow = VisualHelper.FindParent<DataGridRow>(button);
+            var currentRow = VisualHelper.FindParent<DataGridRow>(pressedButton);
             var personsDataGrid = VisualHelper.FindParent<DataGrid>(currentRow);
             
             personsDataGrid.SelectedItem = currentRow.DataContext;
-            personsDataGrid.BeginEdit();
+            
+            ((MainPageViewModel)personsDataGrid.DataContext).EnableDataGridEditModeCommand.Execute(personsDataGrid.SelectedItem);
         }
     }
 }

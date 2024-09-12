@@ -11,6 +11,7 @@
     xmlns:viewModels="using:EducationProject2.ViewModels"
     xmlns:winUi="using:CommunityToolkit.WinUI"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:winUiControls="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -56,75 +57,76 @@
                     <controls:DataGridTemplateColumn Header="First name" Width="1*">
                         <controls:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate x:DataType="models:Person">
-                                <TextBlock x:Name="FirstNameTextBlock"
-                                           Text="{Binding FirstName, Mode=OneWay}"
-                                           Margin="5"
-                                           VerticalAlignment="Center" />
+                                <winUiControls:DockPanel>
+                                    <TextBlock winUi:FrameworkElementExtensions.AncestorType="controls:DataGrid"
+                                               Visibility="{Binding EditVisibility.NonEditComponentVisibility, Mode=OneWay}"
+                                               Text="{Binding FirstName, Mode=OneWay}"
+                                               Margin="5"
+                                               VerticalAlignment="Center" />
+                                    <TextBox winUi:FrameworkElementExtensions.AncestorType="controls:DataGrid"
+                                             Visibility="{Binding EditVisibility.EditComponentVisibility, Mode=OneWay}"
+                                             Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=Explicit}"
+                                             Margin="5"
+                                             VerticalAlignment="Center" />
+                                </winUiControls:DockPanel>
                             </DataTemplate>
                         </controls:DataGridTemplateColumn.CellTemplate>
-                        <controls:DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate x:DataType="models:Person">
-                                <TextBox Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=Explicit}"
-                                         Margin="5"
-                                         VerticalAlignment="Center" />
-                            </DataTemplate>
-                        </controls:DataGridTemplateColumn.CellEditingTemplate>
                     </controls:DataGridTemplateColumn>
 
                     <controls:DataGridTemplateColumn Header="Last name" Width="1*">
                         <controls:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate x:DataType="models:Person">
-                                <TextBlock Text="{Binding LastName, Mode=OneWay}"
-                                           Margin="5"
-                                           VerticalAlignment="Center" />
+                                <winUiControls:DockPanel>
+                                    <TextBlock winUi:FrameworkElementExtensions.AncestorType="controls:DataGrid"
+                                               Visibility="{Binding EditVisibility.NonEditComponentVisibility, Mode=OneWay}"
+                                               Text="{Binding LastName, Mode=OneWay}"
+                                               Margin="5"
+                                               VerticalAlignment="Center" />
+                                    <TextBox winUi:FrameworkElementExtensions.AncestorType="controls:DataGrid"
+                                             Visibility="{Binding EditVisibility.EditComponentVisibility, Mode=OneWay}"
+                                             Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=Explicit}"
+                                             Margin="5"
+                                             VerticalAlignment="Center" />
+                                </winUiControls:DockPanel>
                             </DataTemplate>
                         </controls:DataGridTemplateColumn.CellTemplate>
-                        <controls:DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate x:DataType="models:Person">
-                                <TextBox
-                                    Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=Explicit}"
-                                    Margin="5"
-                                    VerticalAlignment="Center" />
-                            </DataTemplate>
-                        </controls:DataGridTemplateColumn.CellEditingTemplate>
                     </controls:DataGridTemplateColumn>
 
                     <controls:DataGridTemplateColumn Header="Last name" Width="150">
                         <controls:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate x:DataType="models:Person">
-                                <StackPanel Orientation="Horizontal"
-                                            HorizontalAlignment="Center">
-                                    <Button Content="Edit"
+                                <winUiControls:DockPanel HorizontalAlignment="Center">
+                                    <Button winUi:FrameworkElementExtensions.AncestorType="controls:DataGrid"
+                                            Visibility="{Binding EditVisibility.NonEditComponentVisibility, Mode=OneWay}"
+                                            Content="Edit"
                                             Margin="5"
                                             VerticalAlignment="Center">
                                         <i:Interaction.Behaviors>
                                             <behaviors:BeginEditModeButtonClickBehavior />
                                         </i:Interaction.Behaviors>
                                     </Button>
-                                </StackPanel>
-                            </DataTemplate>
-                        </controls:DataGridTemplateColumn.CellTemplate>
-                        <controls:DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate x:DataType="models:Person">
-                                <StackPanel Orientation="Horizontal"
-                                            HorizontalAlignment="Center">
-                                    <Button Content="Save"
+
+                                    <Button winUi:FrameworkElementExtensions.AncestorType="controls:DataGrid"
+                                            Visibility="{Binding EditVisibility.EditComponentVisibility, Mode=OneWay}"
+                                            Content="Save"
                                             Margin="5"
                                             VerticalAlignment="Center">
                                         <i:Interaction.Behaviors>
                                             <behaviors:CommitEditModeButtonClickBehavior />
                                         </i:Interaction.Behaviors>
                                     </Button>
-                                    <Button Content="Cancel"
+                                    <Button winUi:FrameworkElementExtensions.AncestorType="controls:DataGrid"
+                                            Visibility="{Binding EditVisibility.EditComponentVisibility, Mode=OneWay}"
+                                            Content="Cancel"
                                             Margin="5"
                                             VerticalAlignment="Center">
                                         <i:Interaction.Behaviors>
                                             <behaviors:CancelEditModeButtonClickBehavior />
                                         </i:Interaction.Behaviors>
                                     </Button>
-                                </StackPanel>
+                                </winUiControls:DockPanel>
                             </DataTemplate>
-                        </controls:DataGridTemplateColumn.CellEditingTemplate>
+                        </controls:DataGridTemplateColumn.CellTemplate>
                     </controls:DataGridTemplateColumn>
 
                     <controls:DataGridTemplateColumn Header="Action" Width="100">

@@ -3,12 +3,13 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using EducationProject2.Models.Abstract;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 
 namespace EducationProject2.Models
 {
     [Serializable]
-    public class Person : INotifyPropertyChanged, IMongoDbObject
+    public class Person : INotifyPropertyChanged, IMongoDbObject, IDataGridCustomMultiEditingObject
     {
         [JsonIgnore] public ObjectId Id { get; set; } = ObjectId.Empty;
 
@@ -41,6 +42,23 @@ namespace EducationProject2.Models
             }
         }
 
+        private EditVisibility editVisibility;
+
+        [JsonIgnore]
+        [BsonIgnore]
+        public EditVisibility EditVisibility
+        {
+            get => editVisibility;
+            set
+            {
+                if (value != editVisibility)
+                {
+                    editVisibility = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        
         public Person()
         {
         }
